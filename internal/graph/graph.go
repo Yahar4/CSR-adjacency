@@ -5,4 +5,6 @@ type Graph[T comparable] interface {
 	AddEdge(u, v T)
 	Neighbours(v T) []T
 	Print()
+	Directed() bool
+	Vertices() []T
 }

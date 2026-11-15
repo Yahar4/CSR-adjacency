@@ -3,12 +3,14 @@ package adjacency
 import "fmt"
 
 type AdjacentGraph[T comparable] struct {
+	vertices []T
 	adj      map[T][]T // храним форматом тип -> массив того же типа
 	directed bool
 }
 
 func New[T comparable](directed bool) *AdjacentGraph[T] {
 	return &AdjacentGraph[T]{
+		vertices: []T{},
 		adj:      make(map[T][]T),
 		directed: directed,
 	}
@@ -17,6 +19,7 @@ func New[T comparable](directed bool) *AdjacentGraph[T] {
 func (g *AdjacentGraph[T]) AddVertex(v T) {
 	if _, exists := g.adj[v]; !exists {
 		g.adj[v] = []T{}
+		g.vertices = append(g.vertices, v)
 	}
 }
 
@@ -42,3 +45,12 @@ func (g *AdjacentGraph[T]) Print() {
 		fmt.Printf("%v -> %v \n", vertex, neighbours)
 	}
 }
+
+func (g *AdjacentGraph[T]) Vertices() []T {
+	out := make([]T, len(g.vertices))
+	copy(out, g.vertices)
+
+	return out
+}
+
+func (g *AdjacentGraph[T]) Directed() bool { return g.directed }

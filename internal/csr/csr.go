@@ -97,3 +97,12 @@ func (g *CSRGraph[T]) insertEdge(from, to int) {
 		g.rowPtr[i]++
 	}
 }
+
+func (g *CSRGraph[T]) Vertices() []T {
+	out := make([]T, len(g.fromID))
+	copy(out, g.fromID)
+
+	return out
+}
+
+func (g *CSRGraph[T]) Directed() bool { return g.directed }
